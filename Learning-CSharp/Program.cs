@@ -65,6 +65,25 @@ namespace Learning_CSharp
 
         static void Main(string[] args)
         {
+            if (args.Length != 0)
+            {
+                switch(args[0].Trim().ToLower())
+                {
+                    case "help":
+                        Console.WriteLine("Random, List, Sequence");
+                        return;
+                    case "random":
+                        uriSource = UriSource.Random;
+                        break;
+                    case "list":
+                        uriSource = UriSource.List;
+                        break;
+                    case "sequence":
+                        uriSource = UriSource.Sequence;
+                        break;
+                }
+            }
+
             if (File.Exists(hashesPath))
                 prevImgHashes = File.ReadAllLines(hashesPath).ToHashSet();
 
