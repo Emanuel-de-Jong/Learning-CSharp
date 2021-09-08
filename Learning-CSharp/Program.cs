@@ -29,7 +29,7 @@ namespace Learning_CSharp
 
         static UriSource uriSource = UriSource.Random;
         static string before = "screenshot-image\" src=\"";
-        static string outPath = @"E:\Media\Downloads\img\";
+        static string outPath = @"E:\Media\Pictures\Lightshot\";
         static string hashesPath = outPath + "hashes.txt";
         static string namesPath = outPath + "names.txt";
         static string uriPath = outPath + "uri.txt";
@@ -122,6 +122,8 @@ namespace Learning_CSharp
 
                     SaveImage(baseUrl + LongToBase36(currentUri));
                 }
+
+                currentUri--;
             }
         }
 
@@ -180,7 +182,15 @@ namespace Learning_CSharp
             string htmlCut = html.Substring(index);
             string imgUrl = htmlCut.Substring(0, htmlCut.IndexOf("\""));
 
-            byte[] imgBytes = client.DownloadData(imgUrl);
+            byte[] imgBytes;
+            try
+            {
+                imgBytes = client.DownloadData(imgUrl);
+            }
+            catch (Exception ex)
+            {
+                return;
+            }
 
             byte[] hashBytes = hasher.ComputeHash(imgBytes);
             StringBuilder sb = new StringBuilder();
