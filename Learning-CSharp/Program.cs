@@ -15,12 +15,20 @@ namespace Learning_CSharp
     {
         static void MainTest(string[] args)
         {
+            string alp = "abcdefghijklmnopqrstuvwxyz";
+
             while (true)
             {
                 string thing = LongToBase36(long.Parse(Console.ReadLine()));
                 Console.Clear();
                 Console.WriteLine(thing);
-                Console.WriteLine(thing.Length);
+
+                foreach (char c in thing)
+                {
+                    Console.Write(alp.IndexOf(c) + 1 + "  ");
+                }
+
+                Console.WriteLine();
             }
 
             Console.ReadKey();
@@ -129,12 +137,12 @@ namespace Learning_CSharp
             {
                 while (!stop)
                 {
-                    SaveImage(baseUrl + LongToBase36(RandomLong(1679616, 4353564672)));
+                    SaveImage(baseUrl + LongToBase36(RandomLong(1679616, 3845440524)));
                 }
             }
             else if (uriSource == UriSource.Sequence)
             {
-                for (; currentUri < 4353564672; currentUri++)
+                for (; currentUri < 3845440524; currentUri++)
                 {
                     if (stop)
                         break;
@@ -157,6 +165,7 @@ namespace Learning_CSharp
 
 
         // 1679616 = 10000
+        // 3845440523 = 1rlh4wb
         // 4353564671 = 1zzzzzz
         // 78364164095 = zzzzzzz
         static string LongToBase36(long value)
@@ -181,7 +190,7 @@ namespace Learning_CSharp
 
         static void SaveImage(string url)
         {
-            Thread.Sleep(250);
+            Thread.Sleep(500);
 
             string imgName = url.Substring(16);
             if (prevImgNames.Contains(imgName))
