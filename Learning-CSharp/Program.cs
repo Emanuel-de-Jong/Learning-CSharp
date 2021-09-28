@@ -196,7 +196,8 @@ namespace Learning_CSharp
             if (prevImgNames.Contains(imgName))
                 return;
 
-            prevImgNames.Add(imgName);
+            if (uriSource != UriSource.Sequence)
+                prevImgNames.Add(imgName);
 
             client.Headers.Add("User-Agent: Other");
             string html = client.DownloadString(url);
@@ -231,6 +232,9 @@ namespace Learning_CSharp
             if (!prevImgHashes.Contains(hash))
             {
                 prevImgHashes.Add(hash);
+
+                if (uriSource == UriSource.Sequence)
+                    prevImgNames.Add(imgName);
 
                 using (MemoryStream ms = new MemoryStream(imgBytes))
                 {
